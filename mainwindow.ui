@@ -81,7 +81,7 @@
      <height>550</height>
     </size>
    </property>
-   <widget class="QGroupBox" name="signalFormGroupBox">
+   <widget class="QWidget" name="signalFormWidget" native="true">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -95,12 +95,21 @@
 border-radius: 20px;
 padding: 20px;</string>
     </property>
-    <property name="flat">
-     <bool>false</bool>
-    </property>
     <layout class="QVBoxLayout" name="signalFormLayout">
      <property name="spacing">
       <number>0</number>
+     </property>
+     <property name="leftMargin">
+      <number>20</number>
+     </property>
+     <property name="topMargin">
+      <number>20</number>
+     </property>
+     <property name="rightMargin">
+      <number>20</number>
+     </property>
+     <property name="bottomMargin">
+      <number>20</number>
      </property>
      <item>
       <widget class="QLabel" name="signalFormLabel">
@@ -165,7 +174,7 @@ padding: 20px;</string>
         <property name="bottomMargin">
          <number>0</number>
         </property>
-        <item row="0" column="0">
+        <item row="1" column="0">
          <widget class="QRadioButton" name="rectangleSignalButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -191,11 +200,11 @@ padding: 20px;</string>
            <string>Прямоугольный</string>
           </property>
           <property name="checked">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
+        <item row="2" column="0">
          <widget class="QRadioButton" name="triangleSignalButtot">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -222,7 +231,7 @@ padding: 20px;</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
+        <item row="3" column="0">
          <widget class="QRadioButton" name="sineSignalButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -249,7 +258,7 @@ padding: 20px;</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
+        <item row="4" column="0">
          <widget class="QRadioButton" name="customSignalButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -276,7 +285,7 @@ padding: 20px;</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
+        <item row="4" column="1">
          <widget class="QLineEdit" name="customSignalLineEdit">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -291,10 +300,17 @@ padding: 20px;</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">padding: 0;
-background-color: rgb(240, 240, 240);
-border-radius: 3px;
-padding-left: 5px;</string>
+           <string notr="true">QLineEdit {
+	padding: 0;
+	background-color: rgb(240, 240, 240);
+	color: rgb(100, 100, 100);
+	border-radius: 3px;
+	padding-left: 5px;
+}
+
+QLineEdit:read-only {
+	background-color: rgb(210, 210, 210);
+}</string>
           </property>
           <property name="maxLength">
            <number>16</number>
@@ -310,17 +326,48 @@ padding-left: 5px;</string>
           </property>
          </widget>
         </item>
+        <item row="0" column="0">
+         <widget class="QRadioButton" name="noSignalButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">padding: 0;</string>
+          </property>
+          <property name="text">
+           <string>Отключено</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
        </layout>
        <zorder>customSignalLineEdit</zorder>
        <zorder>triangleSignalButtot</zorder>
        <zorder>customSignalButton</zorder>
        <zorder>rectangleSignalButton</zorder>
        <zorder>sineSignalButton</zorder>
+       <zorder>noSignalButton</zorder>
       </widget>
      </item>
     </layout>
    </widget>
-   <widget class="QGroupBox" name="voltageGroupBox">
+   <widget class="QWidget" name="voltageWidget" native="true">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -339,16 +386,16 @@ padding: 20px;</string>
       <number>0</number>
      </property>
      <property name="leftMargin">
-      <number>0</number>
+      <number>20</number>
      </property>
      <property name="topMargin">
-      <number>0</number>
+      <number>20</number>
      </property>
      <property name="rightMargin">
-      <number>0</number>
+      <number>20</number>
      </property>
      <property name="bottomMargin">
-      <number>0</number>
+      <number>20</number>
      </property>
      <item>
       <widget class="QLabel" name="voltageLabel">
@@ -405,7 +452,7 @@ padding: 20px;</string>
          <number>0</number>
         </property>
         <property name="topMargin">
-         <number>17</number>
+         <number>10</number>
         </property>
         <property name="rightMargin">
          <number>0</number>
@@ -449,7 +496,7 @@ padding-left: 5px;</string>
            <double>0.000000000000000</double>
           </property>
           <property name="maximum">
-           <double>5.000000000000000</double>
+           <double>1.000000000000000</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
@@ -516,10 +563,10 @@ padding-left: 5px</string>
      </item>
     </layout>
    </widget>
-   <widget class="QGroupBox" name="rightGroupBox">
+   <widget class="QWidget" name="rightWidget" native="true">
     <property name="geometry">
      <rect>
-      <x>389</x>
+      <x>390</x>
       <y>30</y>
       <width>380</width>
       <height>490</height>
@@ -539,6 +586,18 @@ padding: 20px;</string>
     <layout class="QVBoxLayout" name="verticalLayout_5">
      <property name="spacing">
       <number>0</number>
+     </property>
+     <property name="leftMargin">
+      <number>20</number>
+     </property>
+     <property name="topMargin">
+      <number>20</number>
+     </property>
+     <property name="rightMargin">
+      <number>20</number>
+     </property>
+     <property name="bottomMargin">
+      <number>20</number>
      </property>
      <item>
       <widget class="QLabel" name="currentVoltageLabel">
@@ -700,8 +759,8 @@ border-radius: 10px;</string>
          </property>
          <property name="minimumSize">
           <size>
-           <width>330</width>
-           <height>210</height>
+           <width>310</width>
+           <height>200</height>
           </size>
          </property>
          <property name="maximumSize">
@@ -713,7 +772,7 @@ border-radius: 10px;</string>
          <property name="styleSheet">
           <string notr="true">padding: 0;
 border: 1px solid rgb(230, 230, 230);
-border-radius: 5px</string>
+border-radius: 15px;</string>
          </property>
         </widget>
        </item>
@@ -721,7 +780,7 @@ border-radius: 5px</string>
      </item>
     </layout>
    </widget>
-   <widget class="QGroupBox" name="connectGroupBox">
+   <widget class="QWidget" name="connectWidget" native="true">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -737,19 +796,19 @@ padding: 20px;</string>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_6">
      <property name="spacing">
-      <number>8</number>
+      <number>5</number>
      </property>
      <property name="leftMargin">
-      <number>0</number>
+      <number>20</number>
      </property>
      <property name="topMargin">
-      <number>0</number>
+      <number>20</number>
      </property>
      <property name="rightMargin">
-      <number>0</number>
+      <number>20</number>
      </property>
      <property name="bottomMargin">
-      <number>0</number>
+      <number>20</number>
      </property>
      <item>
       <widget class="QWidget" name="horizontalWidget_4" native="true">
@@ -916,12 +975,29 @@ padding-left: 5px;</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(0, 163, 245);
-color: rgb(255, 255, 255);
-border-radius: 5px;</string>
+           <string notr="true">QPushButton {
+	background-color: rgb(0, 163, 245);
+	color: rgb(255, 255, 255);
+	border-radius: 5px;
+}
+
+QPushButton:hover {
+	background-color: rgb(0, 143, 225)
+}
+
+QPushButton:pressed {
+	background-color: rgb(0, 123, 205)
+}
+</string>
           </property>
           <property name="text">
            <string>Подключиться</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="autoExclusive">
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -966,4 +1042,21 @@ border-radius: 5px;</string>
  </tabstops>
  <resources/>
  <connections/>
+ <designerdata>
+  <property name="gridDeltaX">
+   <number>10</number>
+  </property>
+  <property name="gridDeltaY">
+   <number>10</number>
+  </property>
+  <property name="gridSnapX">
+   <bool>true</bool>
+  </property>
+  <property name="gridSnapY">
+   <bool>true</bool>
+  </property>
+  <property name="gridVisible">
+   <bool>true</bool>
+  </property>
+ </designerdata>
 </ui>
