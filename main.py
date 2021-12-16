@@ -5,7 +5,7 @@ from PyQt5 import QtWidgets, uic
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self) -> None: # инициализация
         super(MainWindow, self).__init__()
-        uic.loadUi('./mainwindow.ui', self) # подгружаем файл интерфейса
+        uic.loadUi('mainwindow.ui', self) # подгружаем файл интерфейса
         self.init_variables()
         self.init_event_connections()
 
