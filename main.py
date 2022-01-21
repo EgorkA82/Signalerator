@@ -4,7 +4,7 @@ from argparse import ArgumentParser
 
 
 class MainWindow(QtWidgets.QMainWindow):
-    def __init__(self, test_mode) -> None: # инициализация
+    def __init__(self, test_mode=False) -> None: # инициализация
         super(MainWindow, self).__init__()
         uic.loadUi('mainwindow.ui', self) # подгружаем файл интерфейса
         self.init_variables()
