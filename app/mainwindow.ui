@@ -11,7 +11,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>550</height>
+    <height>570</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -23,13 +23,13 @@
   <property name="minimumSize">
    <size>
     <width>800</width>
-    <height>550</height>
+    <height>570</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>800</width>
-    <height>550</height>
+    <height>570</height>
    </size>
   </property>
   <property name="baseSize">
@@ -85,9 +85,9 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>290</y>
-      <width>340</width>
-      <height>230</height>
+      <y>309</y>
+      <width>331</width>
+      <height>211</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -372,8 +372,8 @@ QLineEdit:read-only {
      <rect>
       <x>30</x>
       <y>140</y>
-      <width>340</width>
-      <height>130</height>
+      <width>331</width>
+      <height>151</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -398,7 +398,7 @@ padding: 20px;</string>
       <number>20</number>
      </property>
      <item>
-      <widget class="QLabel" name="voltageLabel">
+      <widget class="QLabel" name="settingsLabel">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -425,7 +425,7 @@ padding: 20px;</string>
       </widget>
      </item>
      <item>
-      <widget class="QWidget" name="voltageWidget" native="true">
+      <widget class="QWidget" name="settingsWidget" native="true">
        <property name="styleSheet">
         <string notr="true">padding: 0;</string>
        </property>
@@ -558,6 +558,58 @@ padding-left: 5px</string>
           </property>
          </widget>
         </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="periodLabel">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">padding: 0;</string>
+          </property>
+          <property name="text">
+           <string>Период функции (s)</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QDoubleSpinBox" name="periodSpinBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">padding: 0;
+background-color: rgb(240, 240, 240);
+border-radius: 3px;
+padding-left: 5px</string>
+          </property>
+          <property name="decimals">
+           <number>1</number>
+          </property>
+          <property name="minimum">
+           <double>0.100000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>60.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+          <property name="value">
+           <double>1.000000000000000</double>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
      </item>
@@ -566,9 +618,9 @@ padding-left: 5px</string>
    <widget class="QWidget" name="rightWidget" native="true">
     <property name="geometry">
      <rect>
-      <x>390</x>
+      <x>379</x>
       <y>30</y>
-      <width>380</width>
+      <width>391</width>
       <height>490</height>
      </rect>
     </property>
@@ -785,7 +837,7 @@ border-radius: 15px;</string>
      <rect>
       <x>30</x>
       <y>30</y>
-      <width>340</width>
+      <width>331</width>
       <height>90</height>
      </rect>
     </property>
@@ -863,6 +915,19 @@ border-radius: 0;</string>
          </widget>
         </item>
         <item>
+         <spacer name="horizontalSpacer_9">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
          <widget class="QLabel" name="connectStatusLabel">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -915,7 +980,7 @@ border-radius: 0;</string>
          <number>0</number>
         </property>
         <item>
-         <widget class="QComboBox" name="connectPortsBox">
+         <widget class="QComboBox" name="portsList">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -1001,24 +1066,47 @@ QPushButton:pressed {
           </property>
          </widget>
         </item>
-        <item>
-         <spacer name="horizontalSpacer_5">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
        </layout>
       </widget>
      </item>
     </layout>
    </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusBar">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>800</width>
+     <height>20</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>800</width>
+     <height>20</height>
+    </size>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+     <kerning>false</kerning>
+    </font>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(230, 232, 233);
+text-align: middle;</string>
+   </property>
+   <property name="sizeGripEnabled">
+    <bool>true</bool>
+   </property>
   </widget>
  </widget>
  <customwidgets>
@@ -1030,7 +1118,7 @@ QPushButton:pressed {
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>connectPortsBox</tabstop>
+  <tabstop>portsList</tabstop>
   <tabstop>connectButton</tabstop>
   <tabstop>minVoltageSpinBox</tabstop>
   <tabstop>maxVoltageSpinBox</tabstop>
