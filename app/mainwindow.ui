@@ -199,6 +199,9 @@ padding: 20px;</string>
           <property name="text">
            <string>Прямоугольный</string>
           </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
           <property name="checked">
            <bool>false</bool>
           </property>
@@ -229,6 +232,9 @@ padding: 20px;</string>
           <property name="text">
            <string>Треугольный</string>
           </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
          </widget>
         </item>
         <item row="3" column="0">
@@ -256,6 +262,9 @@ padding: 20px;</string>
           <property name="text">
            <string>Синусоида</string>
           </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
          </widget>
         </item>
         <item row="4" column="0">
@@ -282,6 +291,9 @@ padding: 20px;</string>
           </property>
           <property name="text">
            <string>Произвольный</string>
+          </property>
+          <property name="checkable">
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -471,7 +483,7 @@ padding: 20px;</string>
            <string notr="true">padding: 0;</string>
           </property>
           <property name="text">
-           <string>Мин. выходное напряжение (V)</string>
+           <string>Мин. выходное напряжение</string>
           </property>
          </widget>
         </item>
@@ -488,6 +500,9 @@ padding: 20px;</string>
 background-color: rgb(240, 240, 240);
 border-radius: 3px;
 padding-left: 5px;</string>
+          </property>
+          <property name="suffix">
+           <string> V</string>
           </property>
           <property name="decimals">
            <number>1</number>
@@ -517,7 +532,7 @@ padding-left: 5px;</string>
            <string notr="true">padding: 0;</string>
           </property>
           <property name="text">
-           <string>Макс. выходное напряжение (V)</string>
+           <string>Макс. выходное напряжение</string>
           </property>
          </widget>
         </item>
@@ -540,6 +555,9 @@ padding-left: 5px;</string>
 background-color: rgb(240, 240, 240);
 border-radius: 3px;
 padding-left: 5px</string>
+          </property>
+          <property name="suffix">
+           <string> V</string>
           </property>
           <property name="decimals">
            <number>1</number>
@@ -569,7 +587,7 @@ padding-left: 5px</string>
            <string notr="true">padding: 0;</string>
           </property>
           <property name="text">
-           <string>Период функции (s)</string>
+           <string>Период функции</string>
           </property>
          </widget>
         </item>
@@ -592,6 +610,9 @@ padding-left: 5px</string>
 background-color: rgb(240, 240, 240);
 border-radius: 3px;
 padding-left: 5px</string>
+          </property>
+          <property name="suffix">
+           <string> s</string>
           </property>
           <property name="decimals">
            <number>1</number>

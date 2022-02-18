@@ -1,23 +1,23 @@
 import sys
 import os
 import subprocess
-
 import rich.console as console
-from PyQt5 import uic
-from PyQt5.QtWidgets import QMainWindow, QApplication
+
 from argparse import ArgumentParser
+from PyQt5.QtWidgets import QMainWindow, QApplication
 
-from connector import Connector
-
+import connector
+from ui_mainwindow import Ui_MainWindow
 
 class MainWindow(QMainWindow):
     def __init__(self, test_mode: bool=False) -> None: # инициализация
         super(MainWindow, self).__init__()
-        uic.loadUi(os.path.join(os.path.dirname(__file__), 'mainwindow.ui'), self) # подгружаем файл интерфейса
-        self.statusBar.showMessage("Проект Егора Бляблина // 2022")
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
+        self.ui.statusBar.showMessage("Проект Егора Бляблина // 2022")
         
-        self.connector = Connector() # инициализируем объект работы со списком портов
-        self.connector.init_ports(self.portsList) # инициализируем порты
+        self.connector = connector.Connector() # инициализируем объект работы со списком портов
+        self.connector.init_ports(self.ui.portsList) # инициализируем порты
     
         self.init_variables() # инициализируем переменные
         self.init_events() # инициализируем события
@@ -26,19 +26,29 @@ class MainWindow(QMainWindow):
         if test_mode: exit(0)
 
     def init_variables(self) -> None:
+        self.isConnected = False
         self.update_voltages() # обновляем значения напряжений
     
     def init_events(self) -> None:
-        self.maxVoltageSpinBox.valueChanged.connect(self.update_voltages)
-        self.customSignalButton.toggled.connect(self.custom_signal_lineedit_toggler) # разблокируем поле ввода функции
+        self.ui.maxVoltageSpinBox.valueChanged.connect(self.update_voltages)
+        self.ui.customSignalButton.toggled.connect(self.custom_signal_lineedit_toggler) # разблокируем поле ввода функции
+        self.ui.connectButton.clicked.connect(self.handleConnectButton)
 
     def update_voltages(self) -> None:
-        self.max_voltage: float = self.maxVoltageSpinBox.value()
-        self.minVoltageSpinBox.setMaximum(self.max_voltage - 0.1)
-        self.min_voltage: float = self.minVoltageSpinBox.value()
+        self.max_voltage: float = self.ui.maxVoltageSpinBox.value()
+        self.ui.minVoltageSpinBox.setMaximum(self.max_voltage - 0.1)
+        self.min_voltage: float = self.ui.minVoltageSpinBox.value()
     
     def custom_signal_lineedit_toggler(self) -> None:
-        self.customSignalLineEdit.setReadOnly(not self.customSignalButton.isChecked())
+        self.ui.customSignalLineEdit.setReadOnly(not self.ui.customSignalButton.isChecked())
+    
+    def handleConnectButton(self) -> None:
+        if not self.connector.connected:
+            print(self.connector.open_connection(self.ui.portsList.currentData()))
+        else:
+            self.connector.close_connection()
+        
+        self.ui.connectStatusLabel = "подключено" if self.connector.connected else "не подключено"
     
 
 if __name__ == '__main__':
