@@ -42,7 +42,7 @@ class MainWindow(QMainWindow):
     
 
 if __name__ == '__main__':
-    subprocess.run(f"pip install -r {os.path.sep.join(os.path.abspath(__file__).split(os.path.sep)[:-1])}/requirements.txt")
+    subprocess.run(f"pip install -r {os.path.dirname(__file__)}/requirements.txt")
     
     os.system('cls') # очищаем консоль
     console = console.Console()
