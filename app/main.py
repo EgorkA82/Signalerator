@@ -1,7 +1,8 @@
 import sys
 import os
-import rich.console as console
+import subprocess
 
+import rich.console as console
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QApplication
 from argparse import ArgumentParser
@@ -41,6 +42,8 @@ class MainWindow(QMainWindow):
     
 
 if __name__ == '__main__':
+    subprocess.run(f"pip install -r {os.path.sep.join(os.path.abspath(__file__).split(os.path.sep)[:-1])}/requirements.txt")
+    
     os.system('cls') # очищаем консоль
     console = console.Console()
     
