@@ -931,7 +931,7 @@ border-radius: 0;</string>
            </font>
           </property>
           <property name="text">
-           <string>Подключение:</string>
+           <string>Подключение</string>
           </property>
          </widget>
         </item>
@@ -1010,8 +1010,14 @@ border-radius: 0;</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>107</width>
+            <width>105</width>
             <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>150</width>
+            <height>16777215</height>
            </size>
           </property>
           <property name="styleSheet">
@@ -1023,7 +1029,10 @@ padding-left: 5px;</string>
            <string/>
           </property>
           <property name="maxVisibleItems">
-           <number>100</number>
+           <number>10</number>
+          </property>
+          <property name="sizeAdjustPolicy">
+           <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
           </property>
           <property name="frame">
            <bool>true</bool>
@@ -1062,17 +1071,7 @@ padding-left: 5px;</string>
           </property>
           <property name="styleSheet">
            <string notr="true">QPushButton {
-	background-color: rgb(0, 163, 245);
-	color: rgb(255, 255, 255);
-	border-radius: 5px;
-}
-
-QPushButton:hover {
-	background-color: rgb(0, 143, 225)
-}
-
-QPushButton:pressed {
-	background-color: rgb(0, 123, 205)
+	background-color: rgb(220, 220, 230);
 }
 </string>
           </property>
@@ -1080,7 +1079,7 @@ QPushButton:pressed {
            <string>Подключиться</string>
           </property>
           <property name="checkable">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
           <property name="autoExclusive">
            <bool>false</bool>

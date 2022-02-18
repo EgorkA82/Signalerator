@@ -434,12 +434,14 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.portsList.sizePolicy().hasHeightForWidth())
         self.portsList.setSizePolicy(sizePolicy)
-        self.portsList.setMinimumSize(QtCore.QSize(107, 20))
+        self.portsList.setMinimumSize(QtCore.QSize(105, 20))
+        self.portsList.setMaximumSize(QtCore.QSize(150, 16777215))
         self.portsList.setStyleSheet("background-color: rgb(240, 240, 240);\n"
 "border-radius: 3px;\n"
 "padding-left: 5px;")
         self.portsList.setCurrentText("")
-        self.portsList.setMaxVisibleItems(100)
+        self.portsList.setMaxVisibleItems(10)
+        self.portsList.setSizeAdjustPolicy(QtWidgets.QComboBox.AdjustToContentsOnFirstShow)
         self.portsList.setFrame(True)
         self.portsList.setObjectName("portsList")
         self.horizontalLayout_4.addWidget(self.portsList)
@@ -453,20 +455,10 @@ class Ui_MainWindow(object):
         self.connectButton.setSizePolicy(sizePolicy)
         self.connectButton.setMinimumSize(QtCore.QSize(95, 22))
         self.connectButton.setStyleSheet("QPushButton {\n"
-"    background-color: rgb(0, 163, 245);\n"
-"    color: rgb(255, 255, 255);\n"
-"    border-radius: 5px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background-color: rgb(0, 143, 225)\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: rgb(0, 123, 205)\n"
+"    background-color: rgb(220, 220, 230);\n"
 "}\n"
 "")
-        self.connectButton.setCheckable(True)
+        self.connectButton.setCheckable(False)
         self.connectButton.setAutoExclusive(False)
         self.connectButton.setObjectName("connectButton")
         self.horizontalLayout_4.addWidget(self.connectButton)
@@ -520,7 +512,7 @@ class Ui_MainWindow(object):
         self.periodLabel.setText(_translate("MainWindow", "Период функции"))
         self.periodSpinBox.setSuffix(_translate("MainWindow", " s"))
         self.currentVoltageLabel.setText(_translate("MainWindow", "Текущее напряжение"))
-        self.connectLabel.setText(_translate("MainWindow", "Подключение:"))
+        self.connectLabel.setText(_translate("MainWindow", "Подключение"))
         self.connectStatusLabel.setText(_translate("MainWindow", "не подключено"))
         self.connectButton.setText(_translate("MainWindow", "Подключиться"))
 from pyqtgraph import PlotWidget
