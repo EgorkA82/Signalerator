@@ -81,7 +81,7 @@
      <height>550</height>
     </size>
    </property>
-   <widget class="QWidget" name="signalFormWidget" native="true">
+   <widget class="QWidget" name="signalFormsWidget" native="true">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -112,7 +112,7 @@ padding: 20px;</string>
       <number>20</number>
      </property>
      <item>
-      <widget class="QLabel" name="signalFormLabel">
+      <widget class="QLabel" name="signalFormsLabel">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -148,7 +148,7 @@ padding: 20px;</string>
       </widget>
      </item>
      <item>
-      <widget class="QWidget" name="signalFormForm" native="true">
+      <widget class="QWidget" name="signalFormsForm" native="true">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -500,6 +500,15 @@ padding: 20px;</string>
 background-color: rgb(240, 240, 240);
 border-radius: 3px;
 padding-left: 5px;</string>
+          </property>
+          <property name="wrapping">
+           <bool>false</bool>
+          </property>
+          <property name="frame">
+           <bool>false</bool>
+          </property>
+          <property name="readOnly">
+           <bool>false</bool>
           </property>
           <property name="suffix">
            <string> V</string>
@@ -1032,7 +1041,7 @@ padding-left: 5px;</string>
            <number>10</number>
           </property>
           <property name="sizeAdjustPolicy">
-           <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+           <enum>QComboBox::AdjustToContents</enum>
           </property>
           <property name="frame">
            <bool>true</bool>
