@@ -1,19 +1,15 @@
-#define OUTPUT_PIN A0
+#define OUTPUT_PIN 3
 
-int val = 0;
+byte val = 0;
 
 void setup() {
   Serial.begin(9600);
-  pinMode(OUTPUT_PIN, OUTPUT);
+  Serial.setTimeout(10);
 }
 
 void loop() {
   if (Serial.available()) {
-      val = Serial.readStringUntil('\n').toInt();
-      if (val > 255) val = 255;
-      if (val < 0) val = 0;
-
-      Serial.println(val);
+      val = Serial.parseInt();
       analogWrite(OUTPUT_PIN, val);
   }
 }
