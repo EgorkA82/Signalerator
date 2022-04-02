@@ -1,4 +1,7 @@
-from PyQt5.QtWidgets import QRadioButton, QComboBox, QPushButton, QLabel, QWidget, QLineEdit, QStatusBar
+from tkinter import N
+from PyQt5.QtWidgets import QRadioButton, QComboBox, QPushButton, QLabel, QWidget, QLineEdit
+from pyqtgraph import PlotWidget
+from rich import inspect
 
 from ui_mainwindow import Ui_MainWindow
 
@@ -13,9 +16,10 @@ class Ui_Controller:
         self.ports_list: QComboBox = self.Ports_List(ui)
         self.connect_button: QPushButton = self.Connect_Button(ui)
         self.connect_status_label: QLabel = self.Connect_Status_Label(ui)
-        self.signals_form: QWidget = self.Signals_Form(ui)
         self.custom_signal_lineedit: QLineEdit = self.Custom_Signal_LineEdit(ui)
+        self.signals_form: QWidget = self.Signals_Form(ui)
         self.status_bar = self.Status_Bar(ui)
+        self.plotter: PlotWidget = self.ui.graphWidget
         
     def set_mode(self, mode, ports_are_available: bool=False) -> None:  # устанавливаем режима интерфейса
         match mode:
@@ -45,11 +49,47 @@ class Ui_Controller:
         def __init__(self, ui: Ui_MainWindow) -> None:  # инициализируем класс
             self.ui: Ui_MainWindow = ui
         
+        def update_styles(self) -> None:
+            self().setStyleSheet("""* {
+                                        padding: 0;
+                                        background-color: rgb(240, 240, 240);
+                                        color: rgb(100, 100, 100);
+                                        border-radius: 3px;
+                                        padding-left: 5px;
+                                    }
+
+                                    *[verified="true"] {
+                                        border: 1px solid green;
+                                    }
+
+                                    *[verified="false"] {
+                                        border: 1px solid red;
+                                    }
+
+                                    *:read-only {
+                                        background-color: rgb(210, 210, 210);
+                                    }""")
+        
         def toggle(self) -> None:  # отключаем возможность писать в поле, если не активирован режим пользовательской функции
-            self.ui.customSignalLineEdit.setReadOnly(not self.ui.customSignalButton.isChecked())
+            self().setReadOnly(not self.ui.customSignalButton.isChecked())
+            self.clear()
+
+        def verify(self, eval_safe_dict: dict) -> None:
+            try:
+                float(eval(self().text(), {"__builtins__": None}, eval_safe_dict))
+                self().setProperty("verified", "true")
+            except:
+                self().setProperty("verified", "false")
+            finally:
+                self.update_styles()
 
         def __call__(self) -> QLineEdit:  # возвращаем объект поля ввода по вызову класса как функции
             return self.ui.customSignalLineEdit
+        
+        def clear(self) -> None:
+            self().clear()
+            self().setProperty("verified", "")
+            self.update_styles()
         
 
     class Connect_Button:  # класс для работы с кнопкой подключения

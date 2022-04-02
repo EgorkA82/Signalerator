@@ -9,25 +9,32 @@ from ui_controller import Ui_Controller
 class Connector():
     def __init__(self, ui_controller: Ui_Controller) -> None:  # инициализируем объект
         self.connected: bool = False
-        
-        self.serial: QtSerialPort.QSerialPort = QtSerialPort.QSerialPort()  # создаем объект порта
-        self.serial.setBaudRate(9600)  # устанавливаем скорость общения устройств
+        self.acceptable_signatures: list = [signature.lower() for signature in ["Arduino", "CH340"]]  # устанавливаем допустимые сигнатуры совместимых устройств
         self.serial_info: list = QtSerialPort.QSerialPortInfo()  # считываем информацию о последовательных портах
-        
         self.ui_controller: Ui_Controller = ui_controller  # наследуем объект работы с интерфейсом
         self.ports_list: QComboBox = self.ui_controller.ports_list()  # получаем объект работы со списком портов
         
-        self.acceptable_signatures: list = [signature.lower() for signature in ["Arduino", "CH340"]]  # устанавливаем допустимые сигнатуры совместимых устройств
+        self.serial: QtSerialPort.QSerialPort = QtSerialPort.QSerialPort()  # создаем объект порта
+        self.serial.setBaudRate(9600)  # устанавливаем скорость общения устройств
+        self.serial.setParity(QtSerialPort.QSerialPort.Parity.NoParity)
+        self.serial.setDataBits(QtSerialPort.QSerialPort.DataBits.Data8)
+        self.serial.setStopBits(QtSerialPort.QSerialPort.StopBits.OneStop)
+        self.serial.setFlowControl(QtSerialPort.QSerialPort.FlowControl.NoFlowControl)
+        
+        self.ui_controller.ui.maxVoltageSpinBox.valueChanged.connect(self.update_max_voltage)  # обновляем значения напряжений
+        self.ui_controller.ui.minVoltageSpinBox.valueChanged.connect(self.update_min_voltage)
+        self.init_voltages()
+        
         self.update_ports_list()  # обновляем поле выбора порта
     
     def launch_ports_updater(self) -> None:  # запускаем обновление списка портов в отдельном потоке
-        self.ports_updater_thread: Thread = Thread()  # создаем поток
         self.ports_updater_worker: Worker = Worker(self.update_ports_list)  # создаем обработчик и передаем функцию
+        self.ports_updater_thread: Thread = Thread(interval_ms=1000, worker=self.ports_updater_worker)  # создаем поток
         
-        self.ports_updater_thread.run(self.ports_updater_worker)  # запускаем поток и передаем обработчик
+        self.ports_updater_thread.run()  # запускаем поток и передаем обработчик
     
     def get_available_ports(self) -> list:  # возвращаем список доступных COM-портов
-        return list(filter(lambda port: port.portName()[:3] == "COM" and int(port.portName()[3]) not in [1, 2], self.serial_info.availablePorts()))  # оставляем только COM-порты кроме 1-го и 2-го
+        return list(filter(lambda port: port.portName()[:3] == "COM" and port.portName() != "COM1", self.serial_info.availablePorts()))  # оставляем только COM-порты кроме 1-го и 2-го
     
     def update_ports_list(self) -> None:  # обновляем список портов
         self.available_ports: list = self.get_available_ports()  # получаем список достуных портов
@@ -63,6 +70,23 @@ class Connector():
         self.connected: bool = False
         
         self.ui_controller.set_mode(Ui_Controller.NOT_CONNECTED, ports_are_available=bool(self.available_ports))  # выполняем необходимое изменение интерфейса
+    
+    def send_value(self, value: float) -> int:  # отправляем сообщение
+        # print(f"{self.convert(value, 0, 1, self.min_voltage, self.max_voltage):.1f}V \t {int(self.convert(value, 0, 1, self.min_voltage * 51, self.max_voltage * 51))}")
+        return self.serial.write(str(int(self.convert(value, 0, 1, self.min_voltage * 51, self.max_voltage * 51))).encode())
+    
+    def init_voltages(self) -> None:
+        self.update_max_voltage()
+        self.update_min_voltage()
+    
+    def update_max_voltage(self) -> None:  # устанавливаем меньшее напряжение всегда меньше, чем большее
+        self.max_voltage: float = self.ui_controller.ui.maxVoltageSpinBox.value()
+        self.ui_controller.ui.minVoltageSpinBox.setMaximum(self.max_voltage - 0.1)
+        self.min_voltage: float = self.ui_controller.ui.minVoltageSpinBox.value()
         
-    def write(self, message: str) -> None:  # отправляем сообщение
-        self.serial.write(message)
+    def update_min_voltage(self) -> None:
+        self.min_voltage: float = self.ui_controller.ui.minVoltageSpinBox.value()
+    
+    @staticmethod
+    def convert(value: float, from_min: float, from_max: float, to_min: float, to_max: float) -> float:
+        return (value - from_min) * (to_max - to_min) / (from_max - from_min) + to_min

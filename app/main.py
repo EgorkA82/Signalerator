@@ -6,10 +6,10 @@ import rich.console as console
 from argparse import ArgumentParser
 from PyQt5.QtWidgets import QMainWindow, QApplication
 
-import connector
 from ui_mainwindow import Ui_MainWindow
 from ui_controller import Ui_Controller
 from connector import Connector
+from signal_controller import Signal_Controller
 
 
 class MainWindow(QMainWindow):
@@ -19,25 +19,19 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)  # распаковываем объект интерфейса в отдельные функции
         
         self.ui_controller: Ui_Controller = Ui_Controller(self.ui)  # инициализируем объект работы с интерфейсом
-        self.connector: Connector = connector.Connector(self.ui_controller)  # инициализируем объект работы с подключением
+        self.connector: Connector = Connector(self.ui_controller)  # инициализируем объект работы с подключением
+        self.signal_controller = Signal_Controller(self.ui_controller, self.connector)
         self.ui_controller.status_bar.set_text("Проект Егора Бляблина // 2022") 
         
         self.init_events()  # инициализируем события
-        self.update_voltages()  # обновляем значения напряжений
-        self.connector.launch_ports_updater()  # запускаем обновления списка портов
+        self.connector.launch_ports_updater()  # запускаем обновления списка портов 
         
         if test_mode: exit(0)  # при тестовом запуске завершаем выполнение программы
     
     def init_events(self) -> None:
-        self.ui.maxVoltageSpinBox.valueChanged.connect(self.update_voltages)  # обновляем значения напряжений
         self.ui.customSignalButton.toggled.connect(self.ui_controller.custom_signal_lineedit.toggle)  # разблокируем поле ввода функции
         self.ui.connectButton.clicked.connect(self.handleConnectButton)  # обрабатываем реакцию на нажатие
 
-    def update_voltages(self) -> None:  # устанавливаем меньшее напряжение всегда меньше, чем большее
-        self.max_voltage: float = self.ui.maxVoltageSpinBox.value()
-        self.ui.minVoltageSpinBox.setMaximum(self.max_voltage - 0.1)
-        self.min_voltage: float = self.ui.minVoltageSpinBox.value()
-    
     def handleConnectButton(self) -> None:
         if not self.connector.connected:
             self.connector.open_connection(self.ui.portsList.currentData())  # открываем соединение

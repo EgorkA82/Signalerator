@@ -208,7 +208,7 @@ padding: 20px;</string>
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QRadioButton" name="triangleSignalButtot">
+         <widget class="QRadioButton" name="triangularSignalButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -238,7 +238,7 @@ padding: 20px;</string>
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="QRadioButton" name="sineSignalButton">
+         <widget class="QRadioButton" name="sinusoidButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -312,20 +312,32 @@ padding: 20px;</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">QLineEdit {
+           <string notr="true">* {
 	padding: 0;
 	background-color: rgb(240, 240, 240);
 	color: rgb(100, 100, 100);
 	border-radius: 3px;
 	padding-left: 5px;
+    border: 1px solid rgb(240, 240, 240);
 }
 
-QLineEdit:read-only {
+*[verified=&quot;true&quot;] {
+	border-color: green;
+}
+
+*[verified=&quot;false&quot;] {
+	border-color: red;
+}
+
+*:read-only {
 	background-color: rgb(210, 210, 210);
 }</string>
           </property>
+          <property name="text">
+           <string/>
+          </property>
           <property name="maxLength">
-           <number>16</number>
+           <number>100</number>
           </property>
           <property name="readOnly">
            <bool>true</bool>
@@ -335,6 +347,9 @@ QLineEdit:read-only {
           </property>
           <property name="clearButtonEnabled">
            <bool>false</bool>
+          </property>
+          <property name="verified" stdset="0">
+           <string>null</string>
           </property>
          </widget>
         </item>
@@ -370,16 +385,16 @@ QLineEdit:read-only {
         </item>
        </layout>
        <zorder>customSignalLineEdit</zorder>
-       <zorder>triangleSignalButtot</zorder>
+       <zorder>triangularSignalButton</zorder>
        <zorder>customSignalButton</zorder>
        <zorder>rectangleSignalButton</zorder>
-       <zorder>sineSignalButton</zorder>
+       <zorder>sinusoidButton</zorder>
        <zorder>noSignalButton</zorder>
       </widget>
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="voltageWidget" native="true">
+   <widget class="QWidget" name="settingsWidget" native="true">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -432,12 +447,12 @@ padding: 20px;</string>
         <string notr="true">padding: 0;</string>
        </property>
        <property name="text">
-        <string>Установка напряжения</string>
+        <string>Настройки</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QWidget" name="settingsWidget" native="true">
+      <widget class="QWidget" name="settingsForm" native="true">
        <property name="styleSheet">
         <string notr="true">padding: 0;</string>
        </property>
@@ -624,16 +639,16 @@ padding-left: 5px</string>
            <string> s</string>
           </property>
           <property name="decimals">
-           <number>1</number>
+           <number>2</number>
           </property>
           <property name="minimum">
-           <double>0.100000000000000</double>
+           <double>0.010000000000000</double>
           </property>
           <property name="maximum">
            <double>60.000000000000000</double>
           </property>
           <property name="singleStep">
-           <double>0.100000000000000</double>
+           <double>0.010000000000000</double>
           </property>
           <property name="value">
            <double>1.000000000000000</double>
@@ -1152,8 +1167,8 @@ text-align: middle;</string>
   <tabstop>minVoltageSpinBox</tabstop>
   <tabstop>maxVoltageSpinBox</tabstop>
   <tabstop>rectangleSignalButton</tabstop>
-  <tabstop>triangleSignalButtot</tabstop>
-  <tabstop>sineSignalButton</tabstop>
+  <tabstop>triangularSignalButton</tabstop>
+  <tabstop>sinusoidButton</tabstop>
   <tabstop>customSignalButton</tabstop>
   <tabstop>customSignalLineEdit</tabstop>
  </tabstops>
