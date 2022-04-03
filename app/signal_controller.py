@@ -39,7 +39,7 @@ class Signal_Controller:
         self.ui_controller.ui.triangularSignalButton.clicked.connect(lambda: self.set_mode(self.TRIANGULAR_SIGNAL))
         self.ui_controller.ui.sinusoidButton.clicked.connect(lambda: self.set_mode(self.SINUSOID))
         self.ui_controller.ui.customSignalButton.clicked.connect(lambda: self.set_mode(self.CUSTOM_SIGNAL))
-        self.ui_controller.ui.customSignalLineEdit.textChanged.connect(lambda: self.ui_controller.custom_signal_lineedit.verify(self.eval_safe_dict | {"t": 1}))
+        self.ui_controller.ui.customSignalLineEdit.textChanged.connect(lambda: self.ui_controller.custom_signal_lineedit.verify(self.eval_safe_dict))
         self.ui_controller.ui.periodSpinBox.valueChanged.connect(self.update_period)
         
         self.launch()

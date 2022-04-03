@@ -153,11 +153,11 @@ class Ui_MainWindow(object):
 "    border: 1px solid rgb(240, 240, 240);\n"
 "}\n"
 "\n"
-"*[verified=\"true\"] {\n"
+"*[readOnly=\"false\"][verified=\"true\"] {\n"
 "    border-color: green;\n"
 "}\n"
 "\n"
-"*[verified=\"false\"] {\n"
+"*[readOnly=\"false\"][verified=\"false\"] {\n"
 "    border-color: red;\n"
 "}\n"
 "\n"
@@ -168,6 +168,7 @@ class Ui_MainWindow(object):
         self.customSignalLineEdit.setMaxLength(100)
         self.customSignalLineEdit.setReadOnly(True)
         self.customSignalLineEdit.setClearButtonEnabled(False)
+        self.customSignalLineEdit.setProperty("verified", False)
         self.customSignalLineEdit.setObjectName("customSignalLineEdit")
         self.singalFormForm.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.customSignalLineEdit)
         self.noSignalButton = QtWidgets.QRadioButton(self.signalFormsForm)
@@ -351,10 +352,12 @@ class Ui_MainWindow(object):
 "border-radius: 10px;")
         self.currentVoltageLCD.setFrameShape(QtWidgets.QFrame.Box)
         self.currentVoltageLCD.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.currentVoltageLCD.setLineWidth(1)
         self.currentVoltageLCD.setSmallDecimalPoint(False)
         self.currentVoltageLCD.setDigitCount(4)
         self.currentVoltageLCD.setMode(QtWidgets.QLCDNumber.Dec)
         self.currentVoltageLCD.setSegmentStyle(QtWidgets.QLCDNumber.Filled)
+        self.currentVoltageLCD.setProperty("intValue", 0)
         self.currentVoltageLCD.setObjectName("currentVoltageLCD")
         self.currentVoltageLCDLayout.addWidget(self.currentVoltageLCD)
         spacerItem2 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
@@ -428,8 +431,15 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.connectStatusLabel.setFont(font)
-        self.connectStatusLabel.setStyleSheet("color: rgb(255, 0, 0);")
+        self.connectStatusLabel.setStyleSheet("* {\n"
+"    color: red;\n"
+"}\n"
+"\n"
+"*[connected=\"true\"] {\n"
+"    color: green;\n"
+"}")
         self.connectStatusLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.connectStatusLabel.setProperty("connected", False)
         self.connectStatusLabel.setObjectName("connectStatusLabel")
         self.horizontalLayout_7.addWidget(self.connectStatusLabel)
         self.verticalLayout_6.addWidget(self.horizontalWidget_4)
@@ -469,10 +479,34 @@ class Ui_MainWindow(object):
         self.connectButton.setMinimumSize(QtCore.QSize(95, 22))
         self.connectButton.setStyleSheet("QPushButton {\n"
 "    background-color: rgb(220, 220, 230);\n"
+"    border-radius: 5px;\n"
+"}\n"
+"\n"
+"QPushButton[checkable=\"true\"] {\n"
+"    background-color: rgb(0, 163, 245);\n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"\n"
+"QPushButton[checkable=\"true\"]:hover {\n"
+"    background-color: rgb(0, 143, 225);\n"
+"}\n"
+"\n"
+"QPushButton[checkable=\"true\"]:pressed {\n"
+"    background-color: rgb(0, 123, 205);\n"
+"}\n"
+"\n"
+"QPushButton[connected=\"true\"]{\n"
+"    background-color: rgb(200, 0, 0);\n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"            \n"
+"QPushButton[connected=\"true\"]:hover {\n"
+"    background-color: rgb(180, 0, 0);\n"
 "}\n"
 "")
         self.connectButton.setCheckable(False)
         self.connectButton.setAutoExclusive(False)
+        self.connectButton.setProperty("connected", False)
         self.connectButton.setObjectName("connectButton")
         self.horizontalLayout_4.addWidget(self.connectButton)
         self.verticalLayout_6.addWidget(self.horizontalWidget)
@@ -515,8 +549,7 @@ class Ui_MainWindow(object):
         self.triangularSignalButton.setText(_translate("MainWindow", "Треугольный"))
         self.sinusoidButton.setText(_translate("MainWindow", "Синусоида"))
         self.customSignalButton.setText(_translate("MainWindow", "Произвольный"))
-        self.customSignalLineEdit.setPlaceholderText(_translate("MainWindow", "Введите функцию V(t)"))
-        self.customSignalLineEdit.setProperty("verified", _translate("MainWindow", "null"))
+        self.customSignalLineEdit.setPlaceholderText(_translate("MainWindow", "Введите функцию V(x)"))
         self.noSignalButton.setText(_translate("MainWindow", "Отключено"))
         self.settingsLabel.setText(_translate("MainWindow", "Настройки"))
         self.minVoltageLabel.setText(_translate("MainWindow", "Мин. выходное напряжение"))
