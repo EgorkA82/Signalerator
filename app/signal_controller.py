@@ -24,7 +24,7 @@ class Signal_Controller:
                     'fmod', 'frexp', 'hypot', 'ldexp', 'log', 'log10',
                     'modf', 'pi', 'pow', 'radians', 'sin', 'sinh', 'sqrt',
                     'tan', 'tanh']
-        self.eval_safe_dict = {k: getattr(math, k) for k in eval_safe_list}
+        self.eval_safe_dict = {k: getattr(math, k) for k in eval_safe_list} | {'round': round}
         
         self.mode: Callable | None = self.NO_SIGNAL
         self.period: int = int(self.ui_controller.ui.periodSpinBox.value() * 1000)
