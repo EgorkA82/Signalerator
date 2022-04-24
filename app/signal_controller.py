@@ -21,7 +21,7 @@ class Signal_Controller:
         
         eval_safe_list = ['acos', 'asin', 'atan', 'atan2', 'ceil', 'cos',
                     'cosh', 'degrees', 'e', 'exp', 'fabs', 'floor',
-                    'fmod', 'frexp', 'hypot', 'ldexp', 'log', 'log10',
+                    'fmod', 'hypot', 'log', 'log10',
                     'modf', 'pi', 'pow', 'radians', 'sin', 'sinh', 'sqrt',
                     'tan', 'tanh']
         self.eval_safe_dict = {k: getattr(math, k) for k in eval_safe_list} | {'round': round}
