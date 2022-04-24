@@ -1,4 +1,4 @@
-#define OUTPUT_PIN 3
+#define OUTPUT_PIN 6
 
 byte val = 0;
 
