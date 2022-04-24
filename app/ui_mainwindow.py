@@ -294,7 +294,7 @@ class Ui_MainWindow(object):
 "border-radius: 3px;\n"
 "padding-left: 5px")
         self.periodSpinBox.setDecimals(2)
-        self.periodSpinBox.setMinimum(0.01)
+        self.periodSpinBox.setMinimum(0.2)
         self.periodSpinBox.setMaximum(60.0)
         self.periodSpinBox.setSingleStep(0.01)
         self.periodSpinBox.setProperty("value", 1.0)

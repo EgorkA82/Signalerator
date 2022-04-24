@@ -642,7 +642,7 @@ padding-left: 5px</string>
            <number>2</number>
           </property>
           <property name="minimum">
-           <double>0.010000000000000</double>
+           <double>0.200000000000000</double>
           </property>
           <property name="maximum">
            <double>60.000000000000000</double>
