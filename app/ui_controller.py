@@ -27,14 +27,17 @@ class Ui_Controller:
                 self.connect_button.set_connected()
                 self.connect_status_label.set_connected()
                 self.signals_form.set_checkable(True)
+                self.ports_list.freeze()
             case "CONNECTING":  # режим "подключение"
                 self.connect_button.set_not_connected(checkable=False)
                 self.connect_status_label.set_connecting()
                 self.signals_form.set_checkable(False)
+                self.ports_list.freeze()
             case "NOT CONNECTED":  # режим "не подключено"
                 self.connect_button.set_not_connected(checkable=ports_are_available)
                 self.connect_status_label.set_not_connected()
                 self.signals_form.set_checkable(False)
+                self.ports_list.unfreeze()
     
     
     class Ports_List:  # класс для работы с объектом списка доступных портов
@@ -43,6 +46,12 @@ class Ui_Controller:
         
         def __call__(self) -> QComboBox:  # возвращаем объект списка по вызову класса как функции
             return self.ui.portsList
+        
+        def freeze(self):  # замораживаем текущий список
+            self().setEnabled(False)
+            
+        def unfreeze(self):  # размораживаем текущий список
+            self().setEnabled(True)
     
     
     class Custom_Signal_LineEdit:  # класс для работы со строкой пользовательской функции сигнала
