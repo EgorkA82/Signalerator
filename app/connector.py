@@ -29,7 +29,7 @@ class Connector():
     
     def launch_ports_updater(self) -> None:  # запускаем обновление списка портов в отдельном потоке
         self.ports_updater_worker: Worker = Worker(self.update_ports_list)  # создаем обработчик и передаем функцию
-        self.ports_updater_thread: Thread = Thread(interval_ms=1000, worker=self.ports_updater_worker)  # создаем поток
+        self.ports_updater_thread: Thread = Thread(interval_ms=3000, worker=self.ports_updater_worker)  # создаем поток
         
         self.ports_updater_thread.run()  # запускаем поток и передаем обработчик
     
@@ -37,6 +37,9 @@ class Connector():
         return list(filter(lambda port: port.portName()[:3] == "COM" and port.portName() != "COM1", self.serial_info.availablePorts()))  # оставляем только COM-порты кроме 1-го и 2-го
     
     def update_ports_list(self) -> None:  # обновляем список портов
+        if self.ports_list.hasFocus():
+            return
+        
         self.available_ports: list = self.get_available_ports()  # получаем список достуных портов
         current_port_is_in_ports: bool = any([self.serial.portName() in port.portName() for port in self.available_ports])  # проверка на наличие порта в списке доступных
         
