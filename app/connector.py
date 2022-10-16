@@ -75,7 +75,6 @@ class Connector():
         self.ui_controller.set_mode(Ui_Controller.NOT_CONNECTED, ports_are_available=bool(self.available_ports))  # выполняем необходимое изменение интерфейса
     
     def send_value(self, value: float) -> int:  # отправляем сообщение
-        # print(f"{self.convert(value, 0, 1, self.min_voltage, self.max_voltage):.1f}V \t {int(self.convert(value, 0, 1, self.min_voltage * 51, self.max_voltage * 51))}")
         return self.serial.write(str(int(self.convert(value, 0, 1, self.min_voltage * 51, self.max_voltage * 51))).encode())
     
     def init_voltages(self) -> None:
